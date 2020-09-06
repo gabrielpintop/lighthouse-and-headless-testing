@@ -109,13 +109,16 @@ app.updateTimetableCard = function (data) {
  ****************************************************************************/
 
 
-app.getSchedule = function (key, label, save) {
+app.getSchedule = function (key, label, save, first = null) {
     var url = 'https://api-ratp.pierre-grimaud.fr/v3/schedules/' + key;
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
+                if (first) {
+                    window.firstAPICall = new Date().getTime() - first;
+                }
                 var response = JSON.parse(request.response);
                 var result = {};
                 result.key = key;
@@ -191,7 +194,7 @@ app.initialize = function () {
         db = result;
         db.get('metros/1/bastille/A').then(function (res) {
             if (!res) {
-                app.getSchedule('metros/1/bastille/A', 'Bastille, Direction La Défense', true);
+                app.getSchedule('metros/1/bastille/A', 'Bastille, Direction La Défense', true, new Date().getTime());
             } else {
                 var savedKeys = [];
                 db.forEach(function (k, v) {
@@ -203,7 +206,6 @@ app.initialize = function () {
                 }).catch(function (err) {
                     console.log(err);
                 });
-
             }
         }).catch(function (err) {
             console.log(err);
