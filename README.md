@@ -1,5 +1,6 @@
-# Implementations of a PWA with offline capabilities
+# Taller 3 - Lighthouse y Headless Testing
 
-Visit the app on https://gabrielpintop-metro-schedule-pwa.glitch.me/
+# Integrantes
 
-- Author: Gabriel Leonardo Pinto Pineda
+- Andrés Varón
+- Gabriel Pinto
